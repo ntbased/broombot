@@ -14,10 +14,13 @@ client.on('message', msg => {
  msg.channel.send('i am broom');
  }
  if (msg.content.includes('scary')) {
-   if (Math.floor(Math.random()*10) < 4) {
+   if (msg.author.bot === false) {
+   if (Math.floor(Math.random()*10) < 2) {
       msg.channel.send('youre scary');
    }
+}
  }
+
  if (msg.content === 'number') {
    msg.channel.send(Math.floor(Math.random()*10));
    msg.react("💩");
@@ -27,17 +30,17 @@ client.on('message', msg => {
  }
 
  if (msg.content.includes('damn')) {
-   if (Math.floor(Math.random()*10) < 4) {
+   if (Math.floor(Math.random()*10) < 2) {
    msg.channel.send("<@" + msg.author.id + ">" + " says: " + msg.content.replace("damn", "I'm frustrated"));
  }
 }
 
  if (msg.content.includes('wtf')) {
-   if (Math.floor(Math.random()*10) < 4) {
+   if (Math.floor(Math.random()*10) < 2) {
    msg.channel.send("<@" + msg.author.id + ">" + " says: " + msg.content.replace("wtf", "I don't understand"));
  }
 }
-if (msg.content.startsWith("test")) {
+if (msg.content.startsWith("spanishify")) {
     	var msgsplit = msg.content.split(" ");
       var combined = ""
       for (i = 1; i < msgsplit.length; i++) {
