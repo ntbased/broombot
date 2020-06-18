@@ -51,15 +51,16 @@ if (msg.content.startsWith("spanishify")) {
       var combined = ""
       for (i = 1; i < msgsplit.length; i++) {
         combined = combined + " " + msgsplit[i] + "o"
-
     }
     if (combined.length != 0) {
     msg.channel.send(combined);
+
 } else {
+
   msg.channel.messages.fetch({ limit: 2 }).then(messages => {
   const firstMessage = messages.last()
   if (firstMessage) {
-    if (msg.author.bot === false) {
+    if (firstMessage.author.id != client.user.id) {
      var msgsplit = firstMessage.content.split(" ");
      var combined = ""
      for (i = 0; i < msgsplit.length; i++) {
@@ -75,7 +76,7 @@ if (msg.content.startsWith("spanishify")) {
   }
 }
 
-if (msg.content.startsWith("test")) {
+if (msg.content.startsWith("echo")) {
 msg.channel.messages.fetch({ limit: 2 }).then(messages => {
 const firstMessage = messages.last()
 if (firstMessage) {
