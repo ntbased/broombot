@@ -16,7 +16,7 @@ client.on('message', msg => {
  if (msg.content.includes('scary')) {
    if (msg.author.bot === false) {
    if (Math.floor(Math.random()*10) < 2) {
-      msg.channel.send('youre scary');
+      msg.channel.send("you're scary");
    }
 }
  }
@@ -30,17 +30,22 @@ client.on('message', msg => {
  }
 
  if (msg.content.includes('damn')) {
+      if (msg.author.bot === false) {
    if (Math.floor(Math.random()*10) < 2) {
    msg.channel.send("<@" + msg.author.id + ">" + " says: " + msg.content.replace("damn", "I'm frustrated"));
  }
 }
+}
 
  if (msg.content.includes('wtf')) {
+      if (msg.author.bot === false) {
    if (Math.floor(Math.random()*10) < 2) {
    msg.channel.send("<@" + msg.author.id + ">" + " says: " + msg.content.replace("wtf", "I don't understand"));
  }
 }
+}
 if (msg.content.startsWith("spanishify")) {
+     if (msg.author.bot === false) {
     	var msgsplit = msg.content.split(" ");
       var combined = ""
       for (i = 1; i < msgsplit.length; i++) {
@@ -49,6 +54,14 @@ if (msg.content.startsWith("spanishify")) {
     }
     msg.channel.send(combined);
   }
+}
+  if (msg.mentions.has(client.user)) {
+    msg.channel.send("Avaliable triggers: broombot, broom, *scary*, number, poop, *damn*, *wtf*");
+    msg.channel.send("Italicized triggers will only sometimes trigger")
+    msg.channel.send("Avaliable commands: spanishify");
+
+
+ }
 
  });
 
