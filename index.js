@@ -26,14 +26,14 @@ client.on('message', msg => {
  if (msg.content === 'number') {
    msg.channel.send(Math.floor(Math.random()*10));
  }
- if (msg.content === 'poop') {
+ if (msg.content.includes('poop')) {
    msg.react("💩");
  }
 
  if (msg.content.includes('damn')) {
       if (msg.author.bot === false) {
    if (Math.floor(Math.random()*10) < 3) {
-   msg.channel.send("<@" + msg.author.id + ">" + " says: " + msg.content.replace("damn", "I'm frustrated"));
+   msg.channel.send("<@" + msg.author.id + ">" + " says: " + msg.content.replace(/damn/gi, "I'm frustrated"));
  }
 }
 }
@@ -41,7 +41,7 @@ client.on('message', msg => {
  if (msg.content.includes('wtf')) {
       if (msg.author.bot === false) {
    if (Math.floor(Math.random()*10) < 3) {
-   msg.channel.send("<@" + msg.author.id + ">" + " says: " + msg.content.replace("wtf", "I don't understand"));
+   msg.channel.send("<@" + msg.author.id + ">" + " says: " + msg.content.replace(/wtf/gi, "I don't understand"));
  }
 }
 }
@@ -53,9 +53,39 @@ if (msg.content.startsWith("spanishify")) {
         combined = combined + " " + msgsplit[i] + "o"
 
     }
+    if (combined.length != 0) {
     msg.channel.send(combined);
+} else {
+  msg.channel.messages.fetch({ limit: 2 }).then(messages => {
+  const firstMessage = messages.last()
+  if (firstMessage) {
+    if (msg.author.bot === false) {
+     var msgsplit = firstMessage.content.split(" ");
+     var combined = ""
+     for (i = 0; i < msgsplit.length; i++) {
+       combined = combined + " " + msgsplit[i] + "o"
+     }
+     msg.channel.send(combined);
+   }
+  } else {
+    msg.channel.send("oof");
+  }
+  })
+}
   }
 }
+
+if (msg.content.startsWith("test")) {
+msg.channel.messages.fetch({ limit: 2 }).then(messages => {
+const firstMessage = messages.last()
+if (firstMessage) {
+  msg.channel.send(firstMessage.content);
+} else {
+  msg.channel.send("oof");
+}
+})}
+
+
 if (msg.content.startsWith("japanify")) {
      if (msg.author.bot === false) {
     	var msgsplit = msg.content.split(" ");
@@ -64,8 +94,13 @@ if (msg.content.startsWith("japanify")) {
         combined = combined + " " + msgsplit[i] + "u"
 
     }
+  //
+
+
     msg.channel.send(combined);
-  }
+
+  //} else msg.channel.send("no message!");
+}
 }
   if (msg.mentions.has(client.user)) {
     msg.channel.send("Avaliable triggers: broombot, broom, *scary*, number, poop, *damn*, *wtf*");
