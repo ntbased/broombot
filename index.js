@@ -32,15 +32,19 @@ client.on('message', msg => {
 
  if (msg.content.includes('damn')) {
       if (msg.author.bot === false) {
-   if (Math.floor(Math.random()*10) < 3) {
+   if (Math.floor(Math.random()*10) < 2) {
    msg.channel.send("<@" + msg.author.id + ">" + " says: " + msg.content.replace(/damn/gi, "I'm frustrated"));
  }
 }
 }
 
+if(msg.content.startsWith("ping")) {
+        msg.channel.send("lol wait").then(m => m.edit("you have ping"));
+    }
+
  if (msg.content.includes('wtf')) {
       if (msg.author.bot === false) {
-   if (Math.floor(Math.random()*10) < 3) {
+   if (Math.floor(Math.random()*10) < 2) {
    msg.channel.send("<@" + msg.author.id + ">" + " says: " + msg.content.replace(/wtf/gi, "I don't understand"));
  }
 }
