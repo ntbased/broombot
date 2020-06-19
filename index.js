@@ -17,8 +17,9 @@ client.on('message', msg => {
  if (msg.content.includes('scary')) {
    const scaryList = ["alarming", "chilling", "creepy", "eerie", "hairy", "horrifying", "intimidating", "shocking", "spooky", "bloodcurdling", "hair-raising", "horrendous", "spine-chilling", "bone-chilling", "unnverving", "frightening", "terrifying", "you're scary"]
    if (msg.author.bot === false) {
-   if (Math.floor(Math.random()*10) < 1) {
-      msg.channel.send(scaryList[Math.floor(Math.random() * scaryList.length)]);
+  if (Math.floor(Math.random()*10) < 1) {
+    //  msg.channel.send(scaryList[Math.floor(Math.random() * scaryList.length)]);
+      msg.channel.send(msg.content.replace(/scary/gi, scaryList[Math.floor(Math.random() * scaryList.length)]))
    }
 }
  }
@@ -30,25 +31,27 @@ client.on('message', msg => {
    msg.react("💩");
  }
 
- if (msg.content.includes('damn')) {
+ if (msg.content.includes('damn') || msg.content.includes('wtf') === true) {
       if (msg.author.bot === false) {
-   if (Math.floor(Math.random()*10) < 2) {
-   msg.channel.send("<@" + msg.author.id + ">" + " says: " + msg.content.replace(/damn/gi, "I'm frustrated"));
+   if (Math.floor(Math.random()*10) < 3) {
+     var temp = msg.content.replace(/damn/gi, "I'm frustrated");
+     var newtemp = temp.replace(/wtf/gi, "I don't understand")
+   msg.channel.send(newtemp);
  }
 }
 }
 
-if(msg.content.startsWith("ping")) {
+if(msg.content === "ping") {
         msg.channel.send("lol wait").then(m => m.edit("you have ping"));
     }
 
- if (msg.content.includes('wtf')) {
-      if (msg.author.bot === false) {
-   if (Math.floor(Math.random()*10) < 2) {
-   msg.channel.send("<@" + msg.author.id + ">" + " says: " + msg.content.replace(/wtf/gi, "I don't understand"));
- }
-}
-}
+// if (msg.content.includes('wtf')) {
+//      if (msg.author.bot === false) {
+//   if (Math.floor(Math.random()*10) < 2) {
+//   msg.channel.send(msg.content.replace(/wtf/gi, "I don't understand"));
+ //}
+//}
+//}
 if (msg.content.startsWith("spanishify")) {
      if (msg.author.bot === false) {
     	var msgsplit = msg.content.split(" ");
