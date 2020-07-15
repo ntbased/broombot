@@ -6,7 +6,7 @@ client.on('ready', () => {
  console.log(`Logged in as ${client.user.tag}!`);
  });
 
-client.on('message', msg => {
+client.on('message', async msg => {
   if (msg.content === 'broom') {
     if (msg.author.bot === false) {
   msg.channel.send('i am broom');
@@ -48,6 +48,38 @@ msg.channel.send('broom');
    }
 }
  }
+if (msg.content === 'bserver') {
+  const { Client, PacketWriter, State } = require("mcproto")
+
+const host = "gunnmc.softether.net", port = 42015
+
+const client = await Client.connect(host, port)
+
+client.send(new PacketWriter(0x0).writeVarInt(404)
+    .writeString(host).writeUInt16(port)
+    .writeVarInt(State.Status))
+
+client.send(new PacketWriter(0x0))
+
+const response = await client.nextPacket(0x0)
+//console.log(response.readJSON())
+
+const { players: { online, max, sample = [] } } = response.readJSON()
+
+let names = sample.map(v => v.name)
+
+var namescorrected = names.join(', ')
+/*
+for (i = 0; i < names.length; i++) {
+  namescorrected = names[i]
+}
+namescorrected.replace(",", ", ")
+*/
+msg.channel.send(online + "/" + max + " on GunnMC: " + namescorrected)
+
+client.end()
+}
+
 
  if (msg.content === 'bnumber') {
    msg.channel.send(Math.floor(Math.random()*10));
@@ -138,7 +170,7 @@ if (msg.content.startsWith("japanify")) {
   if (msg.mentions.has(client.user) && msg.content.includes("help")) {
     msg.channel.send("Avaliable triggers: broombot, broom, *scary*, number, poop, *damn*, *wtf*");
     msg.channel.send("Italicized triggers will only sometimes trigger")
-    msg.channel.send("Avaliable commands: bspanishify, bping, becho, bnumber");
+    msg.channel.send("Avaliable commands: bspanishify, bping, becho, bnumber, bserver");
 
 
  }
