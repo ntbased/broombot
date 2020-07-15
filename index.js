@@ -7,12 +7,37 @@ client.on('ready', () => {
  });
 
 client.on('message', msg => {
+  if (msg.content === 'broom') {
+    if (msg.author.bot === false) {
+  msg.channel.send('i am broom');
+  }
+ }
+  /*
  if (msg.content === 'broombot') {
+   if (msg.author.bot === false) {
  msg.channel.send('i am broom');
+}
  }
- if (msg.content === 'broom') {
- msg.channel.send('i am broom');
- }
+
+ if (msg.content === 'i am broom') {
+   msg.channel.messages.fetch({ limit: 1 }).then(messages => {
+   const firstMessage = messages.last()
+   if (firstMessage.author.id != client.user.id) {
+     if (msg.author.bot === false) {
+ msg.channel.send('no, i am broom');
+}
+}
+})}
+
+if (msg.content === 'no, i am broom') {
+  msg.channel.messages.fetch({ limit: 1 }).then(messages => {
+  const firstMessage = messages.last()
+  if (firstMessage.author.id != client.user.id) {
+msg.channel.send('broom');
+}
+})}
+*/
+
 
  if (msg.content.includes('scary')) {
    const scaryList = ["alarming", "chilling", "creepy", "eerie", "hairy", "horrifying", "intimidating", "shocking", "spooky", "bloodcurdling", "hair-raising", "horrendous", "spine-chilling", "bone-chilling", "unnverving", "frightening", "terrifying", "you're scary"]
@@ -24,7 +49,7 @@ client.on('message', msg => {
 }
  }
 
- if (msg.content === 'number') {
+ if (msg.content === 'bnumber') {
    msg.channel.send(Math.floor(Math.random()*10));
  }
  if (msg.content.includes('poop')) {
@@ -41,8 +66,8 @@ client.on('message', msg => {
 }
 }
 
-if(msg.content === "ping") {
-        msg.channel.send("lol wait").then(m => m.edit("you have ping"));
+if(msg.content === "bping") {
+        msg.channel.send("lol wait").then(m => m.edit("you have " + Math.floor(Math.random() * (300 - 150 + 1) + 150) + " ping")); //the real way doesn't work for some reason so i just generate a random number
     }
 
 // if (msg.content.includes('wtf')) {
@@ -83,7 +108,7 @@ if (msg.content.startsWith("spanishify")) {
   }
 }
 
-if (msg.content.startsWith("echo")) {
+if (msg.content.startsWith("becho")) {
 msg.channel.messages.fetch({ limit: 2 }).then(messages => {
 const firstMessage = messages.last()
 if (firstMessage) {
@@ -110,10 +135,10 @@ if (msg.content.startsWith("japanify")) {
   //} else msg.channel.send("no message!");
 }
 }
-  if (msg.mentions.has(client.user)) {
+  if (msg.mentions.has(client.user) && msg.content.includes("help")) {
     msg.channel.send("Avaliable triggers: broombot, broom, *scary*, number, poop, *damn*, *wtf*");
     msg.channel.send("Italicized triggers will only sometimes trigger")
-    msg.channel.send("Avaliable commands: spanishify");
+    msg.channel.send("Avaliable commands: bspanishify, bping, becho, bnumber");
 
 
  }
