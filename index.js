@@ -48,11 +48,32 @@ msg.channel.send('broom');
    }
 }
  }
+
 if (msg.content === 'bserver') {
   const { Client, PacketWriter, State } = require("mcproto")
 
-const host = "gunnmc.softether.net", port = 42015
+const host = "gunnmc.tk", port = 25672
 
+try {
+const client = await Client.connect(host, port)
+}
+
+catch(err) {
+  const exampleEmbed = new Discord.MessageEmbed()
+    .setColor('#ff0000')
+    .setTitle('GunnMC Server Status')
+    .setDescription("Oof")
+    .setThumbnail('https://i.imgur.com/gpHLVnT.png')
+    .addFields(
+  		{name: 'Players:', value: "The server is offline" }
+    )
+    .setFooter('Requested by ' + msg.author.tag)
+    .setTimestamp()
+
+  msg.channel.send(exampleEmbed);
+
+  client.end()
+}
 const client = await Client.connect(host, port)
 
 client.send(new PacketWriter(0x0).writeVarInt(404)
@@ -69,13 +90,23 @@ const { players: { online, max, sample = [] } } = response.readJSON()
 let names = sample.map(v => v.name)
 
 var namescorrected = names.join(', ')
-/*
-for (i = 0; i < names.length; i++) {
-  namescorrected = names[i]
+
+if (namescorrected === "") {
+  namescorrected = "No one is online"
 }
-namescorrected.replace(",", ", ")
-*/
-msg.channel.send(online + "/" + max + " on GunnMC: " + namescorrected)
+
+const exampleEmbed = new Discord.MessageEmbed()
+  .setColor('#26f207')
+  .setTitle('GunnMC Server Status')
+  .setDescription(online + "/" + max + " on `gunnmc.tk:25672`")
+  .setThumbnail('https://i.imgur.com/gpHLVnT.png')
+  .addFields(
+		{name: 'Players:', value: namescorrected }
+  )
+  .setFooter('Requested by ' + msg.author.tag)
+  .setTimestamp()
+
+msg.channel.send(exampleEmbed);
 
 client.end()
 }
@@ -109,7 +140,7 @@ if(msg.content === "bping") {
  //}
 //}
 //}
-if (msg.content.startsWith("spanishify")) {
+if (msg.content.startsWith("bspanishify")) {
      if (msg.author.bot === false) {
     	var msgsplit = msg.content.split(" ");
       var combined = ""
@@ -143,15 +174,13 @@ if (msg.content.startsWith("spanishify")) {
 if (msg.content.startsWith("becho")) {
 msg.channel.messages.fetch({ limit: 2 }).then(messages => {
 const firstMessage = messages.last()
-if (firstMessage) {
-  msg.channel.send(firstMessage.content);
-} else {
-  msg.channel.send("oof");
-}
+
+  msg.channel.send(firstMessage.content).catch(err => { msg.channel.send("no");});
+
 })}
 
 
-if (msg.content.startsWith("japanify")) {
+if (msg.content.startsWith("bjapanify")) {
      if (msg.author.bot === false) {
     	var msgsplit = msg.content.split(" ");
       var combined = ""
@@ -167,9 +196,9 @@ if (msg.content.startsWith("japanify")) {
   //} else msg.channel.send("no message!");
 }
 }
-  if (msg.mentions.has(client.user) && msg.content.includes("help")) {
-    msg.channel.send("Avaliable triggers: broombot, broom, *scary*, number, poop, *damn*, *wtf*");
-    msg.channel.send("Italicized triggers will only sometimes trigger")
+  if ((msg.mentions.has(client.user) && msg.content.includes("help")) || msg.content === "bhelp") {
+    //msg.channel.send("Avaliable triggers: broombot, broom, *scary*, number, poop, *damn*, *wtf*");
+  //  msg.channel.send("Italicized triggers will only sometimes trigger")
     msg.channel.send("Avaliable commands: bspanishify, bping, becho, bnumber, bserver");
 
 
