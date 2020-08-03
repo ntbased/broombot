@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
  const client = new Discord.Client();
+ require('log-timestamp');
  const { token } = require('./token.json')
+
 
 client.on('ready', () => {
  console.log(`Logged in as ${client.user.tag}!`);
@@ -45,11 +47,14 @@ msg.channel.send('broom');
   if (Math.floor(Math.random()*10) < 1) {
     //  msg.channel.send(scaryList[Math.floor(Math.random() * scaryList.length)]);
       msg.channel.send(msg.content.replace(/scary/gi, scaryList[Math.floor(Math.random() * scaryList.length)]))
+      console.log(msg.author.tag + " requested scary")
    }
+
 }
  }
 
 if (msg.content === 'bserver') {
+  console.log(msg.author.tag + " requested bserver")
   const { Client, PacketWriter, State } = require("mcproto")
 
 const host = "gunnmc.tk", port = 25672
@@ -113,13 +118,16 @@ client.end()
 
 
  if (msg.content === 'bnumber') {
+   console.log(msg.author.tag + " requested bnumber")
    msg.channel.send(Math.floor(Math.random()*10));
  }
  if (msg.content.includes('poop')) {
+   console.log(msg.author.tag + " requested poop")
    msg.react("💩");
  }
 
  if (msg.content.includes('damn') || msg.content.includes('wtf') === true) {
+   console.log(msg.author.tag + " requested damn/wtf")
       if (msg.author.bot === false) {
    if (Math.floor(Math.random()*10) < 3) {
      var temp = msg.content.replace(/damn/gi, "I'm frustrated");
@@ -130,6 +138,7 @@ client.end()
 }
 
 if(msg.content === "bping") {
+  console.log(msg.author.tag + " requested bping")
         msg.channel.send("lol wait").then(m => m.edit("you have " + Math.floor(Math.random() * (300 - 150 + 1) + 150) + " ping")); //the real way doesn't work for some reason so i just generate a random number
     }
 
@@ -141,6 +150,7 @@ if(msg.content === "bping") {
 //}
 //}
 if (msg.content.startsWith("bspanishify")) {
+  console.log(msg.author.tag + " requested bspanishify")
      if (msg.author.bot === false) {
     	var msgsplit = msg.content.split(" ");
       var combined = ""
@@ -172,15 +182,18 @@ if (msg.content.startsWith("bspanishify")) {
 }
 
 if (msg.content.startsWith("becho")) {
+
 msg.channel.messages.fetch({ limit: 2 }).then(messages => {
 const firstMessage = messages.last()
 
   msg.channel.send(firstMessage.content).catch(err => { msg.channel.send("no");});
+  console.log(msg.author.tag + " requested becho with message: " + firstMessage.content)
 
 })}
 
 
 if (msg.content.startsWith("bjapanify")) {
+  console.log(msg.author.tag + " requested bjapanify")
      if (msg.author.bot === false) {
     	var msgsplit = msg.content.split(" ");
       var combined = ""
@@ -197,6 +210,7 @@ if (msg.content.startsWith("bjapanify")) {
 }
 }
   if ((msg.mentions.has(client.user) && msg.content.includes("help")) || msg.content === "bhelp") {
+    console.log(msg.author.tag + " requested bhelp")
     //msg.channel.send("Avaliable triggers: broombot, broom, *scary*, number, poop, *damn*, *wtf*");
   //  msg.channel.send("Italicized triggers will only sometimes trigger")
     msg.channel.send("Avaliable commands: bspanishify, bping, becho, bnumber, bserver");
