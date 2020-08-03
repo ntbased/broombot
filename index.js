@@ -11,6 +11,7 @@ client.on('ready', () => {
 client.on('message', async msg => {
   if (msg.content === 'broom') {
     if (msg.author.bot === false) {
+      client.channels.cache.get('739675073803452446').send('Hello here!')
   msg.channel.send('i am broom');
   }
  }
@@ -48,6 +49,7 @@ msg.channel.send('broom');
     //  msg.channel.send(scaryList[Math.floor(Math.random() * scaryList.length)]);
       msg.channel.send(msg.content.replace(/scary/gi, scaryList[Math.floor(Math.random() * scaryList.length)]))
       console.log(msg.author.tag + " requested scary")
+      client.channels.cache.get('739675073803452446').send(msg.author.tag + " requested scary")
    }
 
 }
@@ -55,6 +57,7 @@ msg.channel.send('broom');
 
 if (msg.content === 'bserver') {
   console.log(msg.author.tag + " requested bserver")
+
   const { Client, PacketWriter, State } = require("mcproto")
 
 const host = "gunnmc.tk", port = 25672
@@ -119,6 +122,7 @@ client.end()
 
  if (msg.content === 'bnumber') {
    console.log(msg.author.tag + " requested bnumber")
+
    msg.channel.send(Math.floor(Math.random()*10));
  }
  if (msg.content.includes('poop')) {
@@ -127,12 +131,13 @@ client.end()
  }
 
  if (msg.content.includes('damn') || msg.content.includes('wtf') === true) {
-   console.log(msg.author.tag + " requested damn/wtf")
+
       if (msg.author.bot === false) {
    if (Math.floor(Math.random()*10) < 3) {
      var temp = msg.content.replace(/damn/gi, "I'm frustrated");
      var newtemp = temp.replace(/wtf/gi, "I don't understand")
    msg.channel.send(newtemp);
+   console.log(msg.author.tag + " requested damn/wtf")
  }
 }
 }
@@ -182,14 +187,15 @@ if (msg.content.startsWith("bspanishify")) {
 }
 
 if (msg.content.startsWith("becho")) {
-
+  if (msg.author.bot === false) {
+  if (msg.channel.id != "710932856809193497") {
 msg.channel.messages.fetch({ limit: 2 }).then(messages => {
 const firstMessage = messages.last()
 
   msg.channel.send(firstMessage.content).catch(err => { msg.channel.send("no");});
   console.log(msg.author.tag + " requested becho with message: " + firstMessage.content)
 
-})}
+})}}}
 
 
 if (msg.content.startsWith("bjapanify")) {
