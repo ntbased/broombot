@@ -6,12 +6,14 @@ const Discord = require('discord.js');
 
 client.on('ready', () => {
  console.log(`Logged in as ${client.user.tag}!`);
+ client.channels.cache.get('739675073803452446').send('Bot is now online')
+ client.channels.cache.get('739675073803452446').send('broombot is in ' + client.guilds.cache.size + ' servers')
  });
 
 client.on('message', async msg => {
   if (msg.content === 'broom') {
     if (msg.author.bot === false) {
-      client.channels.cache.get('739675073803452446').send('Hello here!')
+      client.channels.cache.get('739675073803452446').send(msg.author.tag + " requested broom")
   msg.channel.send('i am broom');
   }
  }
@@ -57,6 +59,7 @@ msg.channel.send('broom');
 
 if (msg.content === 'bserver') {
   console.log(msg.author.tag + " requested bserver")
+  client.channels.cache.get('739675073803452446').send(msg.author.tag + " requested bserver")
 
   const { Client, PacketWriter, State } = require("mcproto")
 
@@ -122,6 +125,7 @@ client.end()
 
  if (msg.content === 'bnumber') {
    console.log(msg.author.tag + " requested bnumber")
+   client.channels.cache.get('739675073803452446').send(msg.author.tag + " requested bnumber")
 
    msg.channel.send(Math.floor(Math.random()*10));
  }
@@ -138,12 +142,14 @@ client.end()
      var newtemp = temp.replace(/wtf/gi, "I don't understand")
    msg.channel.send(newtemp);
    console.log(msg.author.tag + " requested damn/wtf")
+   client.channels.cache.get('739675073803452446').send(msg.author.tag + " requested damn/wtf")
  }
 }
 }
 
 if(msg.content === "bping") {
   console.log(msg.author.tag + " requested bping")
+  client.channels.cache.get('739675073803452446').send(msg.author.tag + " requested bping")
         msg.channel.send("lol wait").then(m => m.edit("you have " + Math.floor(Math.random() * (300 - 150 + 1) + 150) + " ping")); //the real way doesn't work for some reason so i just generate a random number
     }
 
@@ -156,6 +162,7 @@ if(msg.content === "bping") {
 //}
 if (msg.content.startsWith("bspanishify")) {
   console.log(msg.author.tag + " requested bspanishify")
+  client.channels.cache.get('739675073803452446').send(msg.author.tag + " requested bspanishify")
      if (msg.author.bot === false) {
     	var msgsplit = msg.content.split(" ");
       var combined = ""
@@ -194,12 +201,14 @@ const firstMessage = messages.last()
 
   msg.channel.send(firstMessage.content).catch(err => { msg.channel.send("no");});
   console.log(msg.author.tag + " requested becho with message: " + firstMessage.content)
+  client.channels.cache.get('739675073803452446').send(msg.author.tag + " requested becho with message: " + firstMessage.content)
 
 })}}}
 
 
 if (msg.content.startsWith("bjapanify")) {
   console.log(msg.author.tag + " requested bjapanify")
+  client.channels.cache.get('739675073803452446').send(msg.author.tag + " requested bjapanify")
      if (msg.author.bot === false) {
     	var msgsplit = msg.content.split(" ");
       var combined = ""
@@ -215,8 +224,9 @@ if (msg.content.startsWith("bjapanify")) {
   //} else msg.channel.send("no message!");
 }
 }
-  if ((msg.mentions.has(client.user) && msg.content.includes("help")) || msg.content === "bhelp") {
+  if ((msg.mentions.has(client.user) || msg.content === "bhelp")) {
     console.log(msg.author.tag + " requested bhelp")
+    client.channels.cache.get('739675073803452446').send(msg.author.tag + " requested bhelp")
     //msg.channel.send("Avaliable triggers: broombot, broom, *scary*, number, poop, *damn*, *wtf*");
   //  msg.channel.send("Italicized triggers will only sometimes trigger")
     msg.channel.send("Avaliable commands: bspanishify, bping, becho, bnumber, bserver");
