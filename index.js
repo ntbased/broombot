@@ -65,7 +65,7 @@ if (msg.content === 'bserver') {
 
   const { Client, PacketWriter, State } = require("mcproto")
 
-const host = "gunnmc.tk", port = 25672
+const host = "localhost", port = 25672
 
 try {
 const client = await Client.connect(host, port)
