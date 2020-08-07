@@ -133,6 +133,7 @@ client.end()
  }
  if (msg.content.includes('poop')) {
    console.log(msg.author.tag + " requested poop")
+
    msg.react("💩");
  }
 
