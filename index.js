@@ -55,9 +55,11 @@ msg.channel.send('broom');
    }
 
 }
- }if (msg.content === 'bserver') {
+ }
+ if (msg.content === 'bserver') {
 
-client.channels.cache.get('739675073803452446').send(msg.author.tag + " requested bserver") }
+client.channels.cache.get('739675073803452446').send(msg.author.tag + " requested bserver") 
+  }
 
 if (msg.content === 'bserver') {
   console.log(msg.author.tag + " requested bserver")
