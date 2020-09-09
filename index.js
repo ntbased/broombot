@@ -13,10 +13,10 @@ client.on('ready', () => {
 
 client.on('message', async msg => {
   if (msg.content === 'broom') {
-    if (msg.author.bot === false) {
+  //  if (msg.author.bot === false) {
       client.channels.cache.get('739675073803452446').send(msg.author.tag + " requested broom")
   msg.channel.send('i am broom');
-  }
+  //}
  }
   /*
  if (msg.content === 'broombot') {
@@ -200,7 +200,7 @@ if (msg.content.startsWith("bspanishify")) {
 }
 
 if (msg.content.startsWith("becho")) {
-  if (msg.author.bot === false) {
+if (msg.author  != "445438011765686273") {
   if (msg.channel.id != "710932856809193497") {
 msg.channel.messages.fetch({ limit: 2 }).then(messages => {
 const firstMessage = messages.last()
@@ -209,8 +209,8 @@ const firstMessage = messages.last()
   console.log(msg.author.tag + " requested becho with message: " + firstMessage.content)
   client.channels.cache.get('739675073803452446').send(msg.author.tag + " requested becho with message: " + firstMessage.content)
 
-})}}}
 
+ })}}}
 
 if (msg.content.startsWith("bjapanify")) {
   console.log(msg.author.tag + " requested bjapanify")
@@ -232,35 +232,69 @@ if (msg.content.startsWith("bjapanify")) {
 }
   if ((msg.mentions.has(client.user) || msg.content === "bhelp")) {
     console.log(msg.author.tag + " requested bhelp")
-    client.channels.cache.get('739675073803452446').send(msg.author.tag + " requested bhelp")
+  //  client.channels.cache.get('739675073803452446').send(msg.author.tag + " requested bhelp")
     //msg.channel.send("Avaliable triggers: broombot, broom, *scary*, number, poop, *damn*, *wtf*");
   //  msg.channel.send("Italicized triggers will only sometimes trigger")
-    msg.channel.send("Avaliable commands: bspanishify, bping, becho, bnumber, bserver, bair");
+    msg.channel.send("Avaliable commands: bspanishify, bping, becho, bnumber, bserver, bair, bspampingme");
 
 
  }
 
+ if(msg.content === "bspampingme") {
+   console.log(msg.author.tag + " requested bspamntbased")
+   client.channels.cache.get('739675073803452446').send(msg.author.tag + " requested bspamntbased")
+   var count = 4
+         msg.channel.send("ok")
+
+         for (i = 0; i < count; i++) {
+           client.channels.cache.get('711793617529995297').send("<@" + msg.author + ">")
+         }
+     }
+
+
+     if(msg.content === "bspamchop0server") {
+       console.log(msg.author.tag + " requested bspamntbased")
+       client.channels.cache.get('739675073803452446').send(msg.author.tag + " requested bspamntbased")
+       var count = 10
+             msg.channel.send("ok")
+
+             for (i = 0; i < count; i++) {
+               client.channels.cache.get('738611844851171356').send("broom")
+             }
+         }
+
  if (msg.content.startsWith("bair")) {
-   axios.get('https://www.purpleair.com/json?show=37953').then(function (response) {
-     var epic = response.data.results[0].Stats.substring(12, 25)
-     console.log(epic)
-     var epic1 = epic.substring(
-    epic.lastIndexOf(":") + 1,
-    epic.lastIndexOf(",")
-);
+   if (msg.author.bot === false) {
+   console.log(msg.author.tag + " requested bair")
+   client.channels.cache.get('739675073803452446').send(msg.author.tag + " requested bair")
+   axios.get('https://www.purpleair.com/json?show=20115').then(function (response) {
+
+    var epic = response.data.results[0].Stats.substring(12, 24)
+
+    console.log(epic)
+
+    var epic1 = epic.substring(epic.lastIndexOf(":") + 1, epic.lastIndexOf(","));
+
+    console.log(epic1)
+
+var freedomtemp = response.data.results[0].temp_f
+var communismtemp = Math.round((freedomtemp-32)*5/9)
+
 var aqi = aqiFromPM(epic1)
   //   msg.channel.send("Current AQI: " + aqi)
   //   msg.channel.send("Current temperature (F): " + response.data.results[0].temp_f)
 
 
      const exampleEmbed = new Discord.MessageEmbed()
+
      .setTitle(aqi + " - " + getAQIDescription(aqi))
        .setColor(color)
 
-       .setDescription("Temp: " + response.data.results[0].temp_f + "°F - Humidity: " + response.data.results[0].humidity + "%")
-       .setThumbnail('https://i.imgur.com/s7tF02b.png')
+       .setDescription("Temp: " + freedomtemp + "°F/" + communismtemp + "°C - Humidity: " + response.data.results[0].humidity + "%\n\n" + getAQIMessage(aqi) + '\n[Click to see map](https://www.purpleair.com/map?opt=1/i/mAQI/a10/cC0&select=20115#11.87/37.40623/-122.12782)')
+       .setThumbnail(cloudurl)
        .addFields(
-     		{name: '\u200b', value: '[Click to see map](https://www.purpleair.com/map?opt=1/i/mAQI/a10/cC0#11.4/37.4131/-122.1283)'}
+
+     //		{name: '\u200b', value: '[Click to see map](https://www.purpleair.com/map?opt=1/i/mAQI/a10/cC0#11.4/37.4131/-122.1283)'}
        )
        .setFooter('Requested by ' + msg.author.tag)
        .setTimestamp()
@@ -269,7 +303,7 @@ var aqi = aqiFromPM(epic1)
    }).catch(function (error) {
        console.log(error);
    });
-}
+}}
 
 });
 
@@ -383,27 +417,55 @@ function aqiFromPM(pm) {
       }
 
 var color;
+var cloudurl;
       function getAQIDescription(aqi) {
         if (aqi >= 401) {
           color = '#731425'
+          cloudurl = 'https://cdn.discordapp.com/attachments/753401463572791296/753401527804362822/731425.png'
           return 'Hazardous';
         } else if (aqi >= 301) {
           color = '#731425'
+          cloudurl = 'https://cdn.discordapp.com/attachments/753401463572791296/753401527804362822/731425.png'
           return 'Hazardous';
+        } else if (aqi >= 251) {
+          color = '#721354'
+          cloudurl = 'https://cdn.discordapp.com/attachments/753401463572791296/753401528693555251/721354.png'
+          return 'Very Unhealthy';
         } else if (aqi >= 201) {
           color = '#8C1A4B'
+          cloudurl = 'https://cdn.discordapp.com/attachments/753401463572791296/753401529767165992/8C1A4B.png'
           return 'Very Unhealthy';
+        } else if (aqi >= 175) {
+          color = '#bb2738'
+          cloudurl = 'https://cdn.discordapp.com/attachments/753401463572791296/753401531130183760/bb2738.png'
+          return 'Unhealthy';
         } else if (aqi >= 151) {
           color = '#EA3324'
+          cloudurl = 'https://cdn.discordapp.com/attachments/753401463572791296/753401532157788240/EA3324.png'
           return 'Unhealthy';
+        } else if (aqi >= 125) {
+          color = 'ff6600'
+          cloudurl = 'https://cdn.discordapp.com/attachments/753401463572791296/753402089685647490/ff6600.png'
+          return 'Unhealthy for Sensitive Groups';
         } else if (aqi >= 101) {
           color = '#EF8533'
+          cloudurl = 'https://cdn.discordapp.com/attachments/753401463572791296/753401500168093796/EF8533.png'
           return 'Unhealthy for Sensitive Groups';
+        } else if (aqi >= 75) {
+          color = '#ffd400'
+          cloudurl = 'https://cdn.discordapp.com/attachments/753401463572791296/753401505939324958/ffd400.png'
+          return 'Moderate';
         } else if (aqi >= 51) {
           color = '#FFFF55'
+          cloudurl = 'https://cdn.discordapp.com/attachments/753401463572791296/753401510339018782/FFFF55.png'
           return 'Moderate';
+        } else if (aqi >= 25) {
+          color = '#d7fc1e'
+          cloudurl = 'https://cdn.discordapp.com/attachments/753401463572791296/753401523488292920/d7fc1e.png'
+          return 'Good';
         } else if (aqi >= 0) {
           color = '#26f207'
+          cloudurl = 'https://cdn.discordapp.com/attachments/753401463572791296/753401526625632286/26f207.png'
           return 'Good';
         } else {
           return undefined;
